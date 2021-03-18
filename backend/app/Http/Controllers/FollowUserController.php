@@ -86,17 +86,17 @@ class FollowUserController extends Controller
         //
     }
     //フォロー処理
-    public function follow($user)
+    public function follow($user_id)
     {
       $login_user = Auth::user();//ログイン中のユーザを取得
-      $follow_user = User::find($user);//フォローするユーザ
-      $follow_user->followUsers()->attach($user);//リレーションの登録
+      $follow_user = User::find($user_id);//フォローするユーザ
+      $follow_user->followUsers()->attach($login_user);//リレーションの登録
       return redirect()->back();
     }
     //フォロー解除
-    public function like_delete(User $user)
+    public function follow_delete(User $user)
     {
-      $post->like_user()->detach(Auth::id());
+      $user->followUsers()->detach(Auth::id());
       return redirect()->back();
     }
 }

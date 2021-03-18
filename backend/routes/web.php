@@ -44,6 +44,11 @@ Route::post('favo_cancel/{post}','PostsController@favo_delete');
 Route::post('postlike/{post_id}','PostsController@like');
 //いいね削除
 Route::post('like_cancel/{post}','PostsController@like_delete');
+//フォロー処理
+Route::post('follow/{user_id}','FollowUserController@follow');
+//フォロー削除
+Route::post('follow_cancel/{user}','FollowUserController@follow_delete');
+
 
 //画像アップロードテスト用
 //Route::get('img', )

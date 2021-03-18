@@ -3,9 +3,32 @@
   <img class="img_size" src="{{ Storage::url($post->file_path) }}" alt="カード画像">
   <h3 class="card-title">{{ $post->post_title }}</h3>
   <p class="card-text">{{ $post->post_desc }}</p>
-
-  <a href="{{ url('/top') }}">トップに戻る</a>
+  <a href="{{ url('/top') }}">トップに戻る</a><br>
   @if(Auth::check())
+    @php
+      $user = App\User::find( $post->user_id );
+    @endphp
+    <!-- フォロー処理//投稿者がログインユーザの場合 -->
+    @if($user->id == Auth::id())
+      <button type="submit" class="btn btn-primary">
+          投稿者：{{ $user->name }}
+      </button>
+    <!-- フォロー処理 -->
+    @elseif($user->followUsers()->where('following_user_id',Auth::id())->exists() !== true)
+      <form action="{{ url('follow/'.$user->id) }}" method="POST">
+        {{ csrf_field() }}
+        <button type="submit" class="btn btn-secondary">
+          投稿者：{{ $user->name }}
+        </button>
+      </fome>
+    @else<!-- フォロー削除 -->
+      <form action="{{ url('follow_cancel', $user) }}" method="POST">
+          {{ csrf_field() }}
+          <button type="submit" class="btn btn-danger">
+            投稿者：{{ $user->name }}フォロー済み：{{ $user->followUsers()->count() }}
+          </button>
+      </form>
+    @endif
     @if($post->favo_user()->where('user_id',Auth::id())->exists() !== true)
       <form action="{{ url('post/'.$post->id) }}" method="POST">
         {{ csrf_field() }}

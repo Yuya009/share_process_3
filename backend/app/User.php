@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
@@ -59,10 +60,10 @@ class User extends Authenticatable
 
     //フォローワーリレーション
     public function followUsers(){
-      return $this->belongsToMany('App\User', 'follow_user', 'followed_user_id', 'fowllowing_user_id');
+      return $this->belongsToMany('App\User', 'follow_users', 'followed_user_id', 'following_user_id');
     }
     //フォローのリレーション
     public function follows() {
-      return $this->belongsToMany('App\User', 'follow_user', 'following_user_id','followed_user_id');
+      return $this->belongsToMany('App\User', 'follow_users', 'following_user_id','followed_user_id');
     }
 }

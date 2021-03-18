@@ -21,6 +21,7 @@
                   </div>
                 </a>
                   @if(Auth::check())
+                    <!-- お気に入り処理 -->
                     @if($post->favo_user()->where('user_id',Auth::id())->exists() !== true)
                       <form action="{{ url('post/'.$post->id) }}" method="POST">
                         {{ csrf_field() }}
