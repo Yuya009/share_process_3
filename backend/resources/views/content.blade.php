@@ -25,7 +25,7 @@
       <form action="{{ url('follow_cancel', $user) }}" method="POST">
           {{ csrf_field() }}
           <button type="submit" class="btn btn-danger">
-            投稿者：{{ $user->name }}フォロー済み：{{ $user->followUsers()->count() }}
+            投稿者：{{ $user->name }}フォロー中{{-- $user->followUsers()->count() --}}
           </button>
       </form>
     @endif
@@ -45,6 +45,7 @@
         </button>
       </form>
     @endif
+    <!-- いいね処理 -->
     @if($post->like_user()->where('user_id',Auth::id())->exists() !== true)
       <form action="{{ url('postlike/'.$post->id) }}" method="POST">
         {{  csrf_field()  }}

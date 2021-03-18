@@ -16,11 +16,11 @@ class Post extends Model
 
     //Userテーブルとの多対多リレーション（favo・お気に入り）
     public function favo_user() {
-      return $this->belongsToMany('App\User','post_user','post_id','user_id');
+      return $this->belongsToMany('App\User','favorites','post_id','user_id');
     }
 
     //Userテーブルとの多対多のリレーション（like・いいね）
     public function like_user() {
-      return $this->belongsTomany('App\User','postlike_user','post_id','user_id');
+      return $this->belongsTomany('App\User','likes','post_id','user_id');
     }
   }

@@ -50,12 +50,12 @@ class User extends Authenticatable
 
     //Postsテーブルとの多対多リレーション（favo・お気に入り）
     public function favo_posts() {
-      return $this->belongsToMany('App\Post');
+      return $this->belongsToMany('App\Post','favorites');
     }
 
     //Postsテーブルとの多対多リレーション（like・いいね）
     public function like_posts() {
-      return $this->belongsToMany('App\Post','postlike_user');
+      return $this->belongsToMany('App\Post','likes');
     }
 
     //フォローワーリレーション
