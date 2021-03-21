@@ -17,13 +17,19 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index_top')->name('home');
 
 //top画面表示
 Route::get('top', 'PostsController@index_top');
 
 //マイページ表示
-Route::get('/', 'PostsController@index');
+//Route::get('/', 'PostsController@index');
+//マイページ表示(user_id)
+Route::get('/{user_id}', 'PostsController@index');
+//フォロー一覧
+Route::get('/{user_id}/followings', 'MypageController@followings');
+//フォロワー一覧
+Route::get('/{user_id}/followers', 'MypageController@followers');
 
 //記事投稿処理
 Route::post('posts', 'PostsController@store');

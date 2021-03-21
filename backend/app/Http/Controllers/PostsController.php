@@ -15,15 +15,18 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($post_id)
     {
         $posts = Post::get();// 全ての投稿を取得
+        //$user = User::find( Auth::user()->id);//ログイン者のID取得
+        $user = User::find($post_id);//ログイン者のID取得
         
         if (Auth::check()) {
              $favo_posts = Auth::user()->favo_posts()->get();//ログインユーザーのお気に入りを取得
              $like_posts = Auth::user()->like_posts()->get();//ログインユーザーのいいねを取得
-              return view('posts',[
+              return view('mypage',[
                 'posts'=> $posts,
+                'user' => $user,
                 'favo_posts'=>$favo_posts,
                 'like_posts'=>$like_posts
               ]);
@@ -120,8 +123,16 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
-        //
-        return view('content',['post' => $post]);
+        $user = User::find( $post->user_id);//投稿者id
+        $following_user = $user->followUsers()->get();//投稿者のフォロワー取得
+        $followed_user = $user->follows()->get();//投稿者のフォロー取得
+        //$followed_user = Auth::user()->follows()->get();//ログイン者のフォロー取得
+        return view('content',[
+          'post' => $post,
+          'user' => $user,
+          'folloUsers' => $following_user,
+          'follows' => $followed_user
+          ]);
     }
 
     /**
@@ -132,7 +143,6 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-        //
         return view('postedit', ['post' => $post]);
     }
 

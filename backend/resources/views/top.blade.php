@@ -55,7 +55,6 @@
                       </form>
                     @endif
                   @endif
-                  
               </div>
               <?php $count++; ?>
         @if ($loop->iteration % 3 == 0 || count($posts) == $count )

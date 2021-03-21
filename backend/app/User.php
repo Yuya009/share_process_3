@@ -58,11 +58,11 @@ class User extends Authenticatable
       return $this->belongsToMany('App\Post','likes');
     }
 
-    //フォローワーリレーション
+    //フォローワーリレーション（フォローワーの取得,第3）
     public function followUsers(){
       return $this->belongsToMany('App\User', 'follow_users', 'followed_user_id', 'following_user_id');
     }
-    //フォローのリレーション
+    //フォローのリレーション（フォローの取得）
     public function follows() {
       return $this->belongsToMany('App\User', 'follow_users', 'following_user_id','followed_user_id');
     }

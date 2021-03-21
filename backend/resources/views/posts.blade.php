@@ -1,6 +1,12 @@
 <!-- resources/views/posts.blade.php -->
 @extends('layouts.app')
 @section('content')
+  {{-- フォロー --}} {{-- フォロワー
+  @php
+    $user = App\User::find( $post->user_id );
+  @endphp
+  {{ $user->followUsers()->count() }}
+  --}}
     <!-- Bootstrapの定形コード… -->
     <div class="card-body">
         <div class="card-title">
