@@ -25,9 +25,11 @@ Route::get('top', 'PostsController@index_top');
 //マイページ表示
 Route::get('/', 'PostsController@index_top');
 //マイページ表示(user_id)
-Route::get('/{user_id}', 'PostsController@index');
+Route::get('/{user_id}', 'MypageController@index');
 //プロフィール編集
-Route::post('/{user_id}/profile_edit', 'MypageController@edit');
+Route::get('/{user_id}/profile_edit', 'MypageController@edit');
+//プロフィールアップデート
+Route::post('/{user_id}/profile_update', 'Mypagecontroller@update');
 //フォロー一覧
 Route::get('/{user_id}/followings', 'MypageController@followings');
 //フォロワー一覧
