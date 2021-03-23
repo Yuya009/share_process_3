@@ -8,6 +8,11 @@
   名前：{{ $user->name }}<br>
   <a href="{{ url(Auth::user()->id.'/followings') }}">{{ $user->follows()->count() }}フォロー</a><br>
   <a href="{{ url(Auth::user()->id.'/followers') }}">{{ $user->followUsers()->count() }}フォロワー</a><br>
+  <form action="" method="">
+    <button type="submit" class="">
+      プロフィール編集
+    </button>
+  </form>
   <!-- /ログイン者情報 -->
   <!-- 全ての投稿リスト -->
     @if (count($posts) > 0)

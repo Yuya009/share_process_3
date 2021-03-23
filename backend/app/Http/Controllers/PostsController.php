@@ -143,7 +143,7 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('postedit', ['post' => $post]);
+        return view('postsedit', ['post' => $post]);
     }
 
     public function update(Request $request) {

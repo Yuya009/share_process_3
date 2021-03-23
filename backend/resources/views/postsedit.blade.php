@@ -41,7 +41,7 @@
                     <button type="submit" class="btn btn-primary">
                         Save
                     </button>
-                    <a class="btn btn-link pull-right" href="{{ url('/') }}">
+                    <a class="btn btn-link pull-right" href="{{ url('/home') }}">
                         back
                     </a>
                 </div>
