@@ -26,10 +26,12 @@ Route::get('top', 'PostsController@index_top');
 Route::get('/', 'PostsController@index_top');
 //マイページ表示(user_id)
 Route::get('/{user_id}', 'MypageController@index');
+//マイページ_いいね
+Route::get('/{user_id}/like', 'MypageController@like');
 //プロフィール編集
 Route::get('/{user_id}/profile_edit', 'MypageController@edit');
 //プロフィールアップデート
-Route::post('/{user_id}/profile_update', 'Mypagecontroller@update');
+Route::post('/{user_id}/update', 'MypageController@update');
 //フォロー一覧
 Route::get('/{user_id}/followings', 'MypageController@followings');
 //フォロワー一覧

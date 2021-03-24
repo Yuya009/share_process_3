@@ -5,16 +5,25 @@
   @include('common.errors')
   <!-- バリデーションエラーの表示に使用-->
   <!-- ログイン者情報 -->
-  名前：{{ $user->name }}<br>
-  <a href="{{ url(Auth::user()->id.'/followings') }}">{{ $user->follows()->count() }}フォロー</a><br>
-  <a href="{{ url($user->id.'/followers') }}">{{ $user->followUsers()->count() }}フォロワー</a><br>
-  <form action="{{ url($user->id.'/profile_edit') }}" method="GET">
-    {{ csrf_field() }}
-    <button type="submit" class="">
-      プロフィール編集
-    </button>
-  </form>
+  <div class="justify-content-center">
+    名前：{{ $user->name }}<br>
+    <a href="{{ url($user->id.'/followings') }}">{{ $user->follows()->count() }}フォロー</a><br>
+    <a href="{{ url($user->id.'/followers') }}">{{ $user->followUsers()->count() }}フォロワー</a><br>
+    <form action="{{ url($user->id.'/profile_edit')}}" method="GET">
+      {{ csrf_field() }}
+      <button type="submit" class="">
+        プロフィール編集
+      </button>
+    </form>
+  </div>
   <!-- /ログイン者情報 -->
+  <!-- タブ -->
+  <nav class="nav justify-content-center">
+    <a class="nav-link active" href="#">投稿記事</a>
+    <a class="nav-link" href="#">お気に入り</a>
+    <a class="nav-link disable" href="#">いいね</a>
+  </nav>
+  <!-- /タブ -->
   <!-- 全ての投稿リスト -->
     @if (count($posts) > 0)
       <div class="card-body">
@@ -28,7 +37,7 @@
             <!-- テーブル本体 -->
             <tbody>
               @foreach ($posts as $post)
-                @if(Auth::id() == $post->user_id)
+                {{-- @if(Auth::id() == $post->user_id) --}}
                   <tr>
                     <!-- 投稿タイトル -->
                     <td class="table-text">
@@ -74,7 +83,7 @@
                       </form>
                     </td>
                   </tr>
-                @endif
+                {{-- @endif --}}
               @endforeach
             </tbody>
           </table>

@@ -13,13 +13,14 @@ class MypageController extends Controller
     //マイページ
     public function index($user_id)
     {
-      $posts = Post::get();// 全ての投稿を取得
+      //$posts = Post::get();// 全ての投稿を取得
+      $posts = User::find($user_id)->posts()->get();
       //$user = User::find( Auth::user()->id);//ログイン者のID取得
-      $user = User::find($user_id);//ログイン者のID取得
+      $user = User::find($user_id);//ID取得からuser情報を取得
       
       if (Auth::check()) {
-           $favo_posts = Auth::user()->favo_posts()->get();//ログインユーザーのお気に入りを取得
-           $like_posts = Auth::user()->like_posts()->get();//ログインユーザーのいいねを取得
+           $favo_posts = $user->favo_posts()->get();//ログインユーザーのお気に入りを取得
+           $like_posts = $user->like_posts()->get();//ログインユーザーのいいねを取得
             return view('mypage',[
               'posts'=> $posts,
               'user' => $user,
@@ -64,12 +65,24 @@ class MypageController extends Controller
     {
       $user = User::find($user_id);
       return view('profile_edit',[
-        'user' => $user
+        'user' => $user //getで送られる？
       ]);
     }
 
     //プロフィール更新
-    public function update()
+    public function update(Request $request)
+    {
+      $user = User::find($request->id);
+      $user->name = $request->name;
+      $user->introduction = $request->introduction;
+      $user->img_url = $request->img_url;
+      $user->save();
+
+      return redirect()->back();
+    }
+
+    //マイページ（いいね）
+    public function like()
     {
 
     }
