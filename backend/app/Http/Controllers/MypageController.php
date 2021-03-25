@@ -33,6 +33,55 @@ class MypageController extends Controller
             ]);
       }
     }
+    //マイページ投稿
+    public function index_post($user_id)
+    {
+      $posts = User::find($user_id)->posts()->get();
+      $user = User::find($user_id);//ID取得からuser情報を取得
+
+      $favo_posts = $user->favo_posts()->get();//ユーザーのお気に入りを取得
+      $like_posts = $user->like_posts()->get();//ユーザーのいいねを取得
+
+        return view('mypage_post',[
+          'posts'=> $posts,
+          'user' => $user,
+          'favo_posts'=>$favo_posts,
+          'like_posts'=>$like_posts
+        ]);
+    }
+    //マイページお気に入り
+    public function index_favorite($user_id)
+    {
+      $posts = User::find($user_id)->posts()->get();
+      $user = User::find($user_id);//ID取得からuser情報を取得
+
+      $favo_posts = $user->favo_posts()->get();//ユーザーのお気に入りを取得
+      $like_posts = $user->like_posts()->get();//ユーザーのいいねを取得
+
+        return view('mypage_favorite',[
+          'posts'=> $posts,
+          'user' => $user,
+          'favo_posts'=>$favo_posts,
+          'like_posts'=>$like_posts
+        ]);
+    }
+    //マイページいいね
+    public function index_like($user_id)
+    {
+      $posts = User::find($user_id)->posts()->get();
+      $user = User::find($user_id);//ID取得からuser情報を取得
+
+      $favo_posts = $user->favo_posts()->get();//ユーザーのお気に入りを取得
+      $like_posts = $user->like_posts()->get();//ユーザーのいいねを取得
+
+        return view('mypage_like',[
+          'posts'=> $posts,
+          'user' => $user,
+          'favo_posts'=>$favo_posts,
+          'like_posts'=>$like_posts
+        ]);
+    }
+
     public function followings($user_id)//ユーザがフォローしている人
     {
       $user = User::find($user_id);//対象のユーザのデータ取得
@@ -65,7 +114,7 @@ class MypageController extends Controller
     {
       $user = User::find($user_id);
       return view('profile_edit',[
-        'user' => $user //getで送られる？
+        'user' => $user
       ]);
     }
 
@@ -78,7 +127,9 @@ class MypageController extends Controller
       $user->img_url = $request->img_url;
       $user->save();
 
-      return redirect()->back();
+      $user_id = $request->id;
+
+      return redirect($user_id.'/post');
     }
 
     //マイページ（いいね）

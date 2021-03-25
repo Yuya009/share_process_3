@@ -1,4 +1,3 @@
-<!-- resources/views/posts.blade.php -->
 @extends('layouts.app')
 @section('content')
   <!-- バリデーションエラーの表示に使用-->
@@ -9,8 +8,7 @@
     名前：{{ $user->name }}<br>
     <a href="{{ url($user->id.'/followings') }}">{{ $user->follows()->count() }}フォロー</a><br>
     <a href="{{ url($user->id.'/followers') }}">{{ $user->followUsers()->count() }}フォロワー</a><br>
-    <form action="{{ url($user->id.'/profile_edit') }}" method="GET">
-      {{ csrf_field() }}
+    <form action="{{ url($user->id.'/profile_edit')}}" method="GET">
       <button type="submit" class="">
         プロフィール編集
       </button>
@@ -28,31 +26,30 @@
     <div class="card-body">
       <table class="table table-striped task-table">
         <!-- テーブルヘッダ -->
-        <table class="table table-striped task-table">
-          <thead>
-            <th>いいね一覧</th>
-            <th>&nbsp;</th>
-          </thead>
-          <!-- テーブル本体 -->
-          <tbody>
-            @foreach ($like_posts as $like_post)
+        <thead>
+          <th>お気に入り一覧</th>
+          <th>&nbsp;</th>
+        </thead>
+        <!-- テーブル本体 -->
+        <tbody>
+          @foreach ($favo_posts as $favo_post)
             <tr>
               <!-- 投稿タイトル -->
               <td class="table-text">
-                <div>{{ $like_post->post_title }}</div>
+                <div>{{ $favo_post->post_title }}</div>
               </td>
               <!-- 投稿詳細 -->
               <td class="table-text">
-                <div>{{ $like_post->post_desc }}</div>
+                <div>{{ $favo_post->post_desc }}</div>
               </td>
               <!-- 投稿者名の表示 -->
               <td class="table-text">
-                <div>{{ $like_post->user->name }}</div>
+                <div>{{ $favo_post->user->name }}</div>
               </td>
             </tr>
-            @endforeach
-          </tbody>
-        </table>
-      </div>
+          @endforeach
+        </tbody>
+      </table>
+    </div>
   </div>
 @endsection

@@ -10,7 +10,6 @@
     <a href="{{ url($user->id.'/followings') }}">{{ $user->follows()->count() }}フォロー</a><br>
     <a href="{{ url($user->id.'/followers') }}">{{ $user->followUsers()->count() }}フォロワー</a><br>
     <form action="{{ url($user->id.'/profile_edit')}}" method="GET">
-      {{ csrf_field() }}
       <button type="submit" class="">
         プロフィール編集
       </button>
@@ -19,13 +18,14 @@
   <!-- /ログイン者情報 -->
   <!-- タブ -->
   <nav class="nav justify-content-center">
-    <a class="nav-link active" href="#">投稿記事</a>
-    <a class="nav-link" href="#">お気に入り</a>
-    <a class="nav-link disable" href="#">いいね</a>
+    <a class="nav-link active" href="{{ url($user->id.'/post') }}">投稿記事</a>
+    <a class="nav-link" href="{{ url($user->id.'/favorite') }}">お気に入り</a>
+    <a class="nav-link disable" href="{{ url($user->id.'/like') }}">いいね</a>
   </nav>
   <!-- /タブ -->
+
+
   <!-- 全ての投稿リスト -->
-    @if (count($posts) > 0)
       <div class="card-body">
         <div class="card-body">
           <table class="table table-striped task-table">
@@ -88,8 +88,7 @@
             </tbody>
           </table>
         </div>
-      </div>		
-    @endif
+      </div>
     <!-- ログインユーザーのみ表示 -->
     @if( Auth::check() )
           <div class="card-body">
