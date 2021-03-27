@@ -5,18 +5,31 @@
   @include('common.errors')
   <!-- バリデーションエラーの表示に使用-->
   <!-- ログイン者情報 -->
-  <div class="justify-content-center">
-    名前：{{ $user->name }}<br>
-    <a href="{{ url($user->id.'/followings') }}">{{ $user->follows()->count() }}フォロー</a><br>
-    <a href="{{ url($user->id.'/followers') }}">{{ $user->followUsers()->count() }}フォロワー</a><br>
-    @if(Auth::id() == $user->id)
-      <form action="{{ url($user->id.'/profile_edit') }}" method="GET">
-        {{ csrf_field() }}
-        <button type="submit" class="">
-          プロフィール編集
-        </button>
-      </form>
-      @endif
+  <div class="container center-block">
+    <div class="row">
+      <div class="col-3">{{-- 画像 --}}
+        <img class="img_size" src="{{ '/profile/'.($user->img_url) }}" alt="">
+      </div>
+      <div class="col-9">{{-- 名前など --}}
+        <div class="col-12 text-left">
+          {{ $user->name }}<br>
+          {{ $user->introduction }}
+        </div>
+        <div class="col-6 text-left">
+          <a href="{{ url($user->id.'/followings') }}">{{ $user->follows()->count() }}フォロー</a>
+          <a href="{{ url($user->id.'/followers') }}">{{ $user->followUsers()->count() }}フォロワー</a><br>
+        </div>
+        <div class="col-6">
+          @if(Auth::id() == $user->id)
+            <form action="{{ url($user->id.'/profile_edit')}}" method="GET">
+              <button type="submit" class="">
+                プロフィール編集
+              </button>
+            </form>
+          @endif
+        </div>
+      </div>
+    </div>
   </div>
   <!-- /ログイン者情報 -->
   <!-- タブ -->
@@ -30,7 +43,6 @@
     <div class="card-body">
       <table class="table table-striped task-table">
         <!-- テーブルヘッダ -->
-        <table class="table table-striped task-table">
           <thead>
             <th>いいね一覧</th>
             <th>&nbsp;</th>
