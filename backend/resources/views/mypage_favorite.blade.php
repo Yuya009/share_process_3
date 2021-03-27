@@ -7,7 +7,7 @@
   <div class="container center-block">
     <div class="row">
       <div class="col-3">{{-- 画像 --}}
-        <img class="img_size" src="{{ '/profile/'.($user->img_url) }}" alt="">
+        <img class="img_profile float-right" src="{{ '/profile/'.($user->img_url) }}" alt="">
       </div>
       <div class="col-9">{{-- 名前など --}}
         <div class="col-12 text-left">
