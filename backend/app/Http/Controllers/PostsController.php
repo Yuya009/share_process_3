@@ -143,7 +143,11 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
+      if(Auth::id() == $post->user_id) {
         return view('postsedit', ['post' => $post]);
+      }else{
+        return redirect('/top');
+      }
     }
 
     public function update(Request $request) {

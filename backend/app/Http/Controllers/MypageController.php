@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Post;
 use App\User;
 use Auth;
@@ -112,21 +113,52 @@ class MypageController extends Controller
     //プロフィール編集
     public function edit($user_id)
     {
-      $user = User::find($user_id);
-      return view('profile_edit',[
-        'user' => $user
-      ]);
+      if(Auth::id() == $user_id) {
+        $user = User::find($user_id);
+        return view('profile_edit',[
+          'user' => $user
+        ]);
+      }else{
+        return redirect($user_id.'/post');
+      }
     }
 
     //プロフィール更新
     public function update(Request $request)
     {
+      //バリデーション
+      $validator = $request->validate([
+        'img' => 'nullable|file|image|max:2048',
+      ]);
+      //画像ファイル取得
+      $file = $request->img;
+      //ユーザー取得
       $user = User::find($request->id);
-      $user->name = $request->name;
-      $user->introduction = $request->introduction;
-      $user->img_url = $request->img_url;
-      $user->save();
 
+      if(!empty($file)) {
+        //ファイルの拡張子取得
+        $ext = $file->guessExtension();
+
+        //ファイル名を生成
+        $file_name = Str::random(32).'.'.$ext;
+
+        //画像のファイル名を任意のDBに保存
+        $user->img_url = $file_name;
+        $user->name = $request->name;
+        $user->introduction = $request->introduction;
+        $user->save();
+
+        //public/profileフォルダを生成
+        $target_path = public_path('/profile/');
+
+        //ファイルをフォルダに移動
+        $file->move($target_path, $file_name);
+      }else{
+        $user->name = $request->name;
+        $user->introduction = $request->introduction;
+        //$user->img_url = $file;
+        $user->save();
+      }
       $user_id = $request->id;
 
       return redirect($user_id.'/post');

@@ -8,11 +8,13 @@
     名前：{{ $user->name }}<br>
     <a href="{{ url($user->id.'/followings') }}">{{ $user->follows()->count() }}フォロー</a><br>
     <a href="{{ url($user->id.'/followers') }}">{{ $user->followUsers()->count() }}フォロワー</a><br>
-    <form action="{{ url($user->id.'/profile_edit')}}" method="GET">
-      <button type="submit" class="">
-        プロフィール編集
-      </button>
-    </form>
+    @if(Auth::id() == $user->id)
+      <form action="{{ url($user->id.'/profile_edit')}}" method="GET">
+        <button type="submit" class="">
+          プロフィール編集
+        </button>
+      </form>
+    @endif
   </div>
   <!-- /ログイン者情報 -->
   <!-- タブ -->

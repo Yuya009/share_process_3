@@ -26,7 +26,7 @@ Route::get('top', 'PostsController@index_top');
 Route::get('/', 'PostsController@index_top');
 //マイページ表示(user_id)
 Route::get('/{user_id}', 'MypageController@index');
-//マイページ（投稿）表示
+//マイページ（投稿・Home）表示
 Route::get('/{user_id}/post', 'MypageController@index_post');
 //マイページ（お気に入り）表示
 Route::get('/{user_id}/favorite', 'MypageController@index_favorite');

@@ -17,7 +17,7 @@
               <div class="form-group">
                 プロフィール画像
                 <div class="col-sm-6">
-                  <input type="file" name="img_url" accept="image/png, image/jpeg" value="{{ Storage::url($user->img_url) }}">
+                  <input type="file" name="img" accept="image/" value="{{ Storage::url($user->img_url) }}" enctype="multipart/form-data" multiple="multiple">
                 </div>
               </div>
             <!-- 投稿のタイトル -->
