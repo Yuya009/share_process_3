@@ -7,6 +7,58 @@
   @endphp
   {{ $user->followUsers()->count() }}
   --}}
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>newsite</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+    <!-- Quill -->
+    <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
+    </head>
+    <body>
+        <div class="wrapper">
+        <div class="header"><h1>投稿ページ</h1></div>
+        <div class="content_wrapper">
+        <div class="content2">
+
+            <form action="/newpostsend" method="post">
+                @csrf
+                <p>タイトル</p>
+                <input type="text" name="title" class="formtitle">
+                <p>&nbsp;</p>
+                <p>本文</p>
+                <!-- <textarea name="main" cols="40" rows="10"></textarea> -->
+                <div id="editor" style="height: 200px;"></div>
+                <p>&nbsp;</p>
+                <input type="submit" class="submitbtn">
+            </form>
+
+        </div>
+        </div>
+        </div>
+
+        <script>
+            var quill = new Quill('#editor', {
+              modules: {
+                toolbar: [
+                  ['bold', 'italic', 'underline', 'strike'],
+                  [{'color': []}, {'background': []}],
+                  ['link', 'blockquote', 'image', 'video'],
+                  [{ list: 'ordered' }, { list: 'bullet' }]
+                ]
+              },
+              placeholder: 'ここに記事を書いてください',
+              theme: 'snow'
+            }); 
+        </script>
+
+    </body>
+
+
     <!-- Bootstrapの定形コード… -->
     <div class="card-body">
         <div class="card-title">
@@ -53,131 +105,6 @@
         <!-- /投稿フォーム -->
 
         @endif
-    </div>
-    <!-- 全ての投稿リスト -->
-    @if (count($posts) > 0)
-        <div class="card-body">
-            <div class="card-body">
-                <table class="table table-striped task-table">
-                    <!-- テーブルヘッダ -->
-                    <thead>
-                        <th>投稿記事一覧</th>
-                        <th>&nbsp;</th>
-                    </thead>
-                    <!-- テーブル本体 -->
-                    <tbody>
-                        @foreach ($posts as $post)
-                          @if(Auth::id() == $post->user_id)
-                            <tr>
-                                <!-- 投稿タイトル -->
-                                <td class="table-text">
-                                    <div>{{ $post->post_title }}</div>
-                                </td>
-                                 <!-- 投稿詳細 -->
-                                <td class="table-text">
-                                    <div>{{ $post->post_desc }}</div>
-                                </td>
-                                <!-- 投稿者名の表示 -->
-                                <td class="table-text">
-                                    <div>{{ $post->user->name }}</div>
-                                </td>
-                                <!-- お気に入りボタン -->
-                                <td class="table-text">
-                                  @if(Auth::check())
-                                    @if(Auth::id() != $post->user_id && $post->favo_user()->where('user_id',Auth::id())->exists() !== true)
-                                    <form action="{{ url('post/'.$post->id) }}" method="POST">
-                                      {{ csrf_field() }}
-                                      <button type="submit" class="btn btn-danger">
-                                      お気に入り
-                                      </button>
-                                    </form>
-                                    @endif
-                                  @endif
-                                </td>
-                                <!-- 編集ボタン -->
-                                <td class="table-text">
-                                      <form action="{{ url('postedit/'.$post->id) }}" method="GET">
-                                        <button type="submit" class="btn btn-primary">
-                                          編集
-                                        </button>
-                                      </form>
-                                </td>
-                                <!-- 削除ボタン -->
-                                <td class="table-text">
-                                      <form action="{{ url('post/'.$post->id) }}" method="POST">
-                                        {{ csrf_field() }}
-                                        {{ method_field('DELETE') }}
-                                        <button type="submit" class="btn btn-danger">
-                                          削除
-                                        </button>
-                                      </form>
-                                </td>
-                            </tr>
-                          @endif
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>		
-    @endif
-    <!-- ログインユーザーのみ表示 -->
-    @if( Auth::check() )
-          <div class="card-body">
-              <div class="card-body">
-                  <table class="table table-striped task-table">
-                      <!-- テーブルヘッダ -->
-                      <thead>
-                          <th>お気に入り一覧</th>
-                          <th>&nbsp;</th>
-                      </thead>
-                      <!-- テーブル本体 -->
-                      <tbody>
-                          @foreach ($favo_posts as $favo_post)
-                              <tr>
-                                  <!-- 投稿タイトル -->
-                                  <td class="table-text">
-                                      <div>{{ $favo_post->post_title }}</div>
-                                  </td>
-                                  <!-- 投稿詳細 -->
-                                  <td class="table-text">
-                                      <div>{{ $favo_post->post_desc }}</div>
-                                  </td>
-                                  <!-- 投稿者名の表示 -->
-                                  <td class="table-text">
-                                      <div>{{ $favo_post->user->name }}</div>
-                                  </td>
-                              </tr>
-                          @endforeach
-                      </tbody>
-                  </table>
-                  
-                  <table class="table table-striped task-table">
-                      <!-- テーブルヘッダ -->
-                      <thead>
-                          <th>いいね一覧</th>
-                          <th>&nbsp;</th>
-                      </thead>
-                      <!-- テーブル本体 -->
-                      <tbody>
-                          @foreach ($like_posts as $like_post)
-                              <tr>
-                                  <!-- 投稿タイトル -->
-                                  <td class="table-text">
-                                      <div>{{ $like_post->post_title }}</div>
-                                  </td>
-                                  <!-- 投稿詳細 -->
-                                  <td class="table-text">
-                                      <div>{{ $like_post->post_desc }}</div>
-                                  </td>
-                                  <!-- 投稿者名の表示 -->
-                                  <td class="table-text">
-                                      <div>{{ $like_post->user->name }}</div>
-                                  </td>
-                              </tr>
-                          @endforeach
-                      </tbody>
-                  </table>
-              </div>
-          </div>
-    @endif
+
+   
 @endsection

@@ -12,7 +12,7 @@
           <div class="container">
             <div class="row">
         @endif
-              <div class="card">
+              <div class="card card-contents">
                 <a class="link_hidden" href="{{ url('post/'.$post->id) }}">
                   <img class="img_size" src="{{ Storage::url($post->file_path) }}" alt="カード画像">
                   <div class="card-body">

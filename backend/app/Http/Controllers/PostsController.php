@@ -115,6 +115,11 @@ class PostsController extends Controller
      
     }
 
+    public function write()
+    {
+      return view('posts');
+    }
+
     /**
      * Display the specified resource.
      *
@@ -148,6 +153,10 @@ class PostsController extends Controller
       }else{
         return redirect('/top');
       }
+    }
+    public function edit_test()
+    {
+      return view('edit');
     }
 
     public function update(Request $request) {

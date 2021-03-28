@@ -25,7 +25,7 @@ Route::get('top', 'PostsController@index_top');
 //マイページ表示
 Route::get('/', 'PostsController@index_top');
 //マイページ表示(user_id)
-Route::get('/{user_id}', 'MypageController@index');
+//Route::get('/{user_id}', 'MypageController@index');
 //マイページ（投稿・Home）表示
 Route::get('/{user_id}/post', 'MypageController@index_post');
 //マイページ（お気に入り）表示
@@ -51,6 +51,11 @@ Route::post('posts/update', 'PostsController@update');
 Route::get('post/{post}', 'PostsController@show');
 //記事投稿削除処理
 Route::delete('post/{post}', 'PostsController@delete');
+
+Route::get('/write', 'PostsController@write');
+
+//テスト記事投稿
+Route::get('/edit_write', 'PostsController@edit_test');
 
 //記事お気に入り処理
 Route::post('post/{post_id}', 'PostsController@favo');

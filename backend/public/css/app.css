@@ -467,11 +467,12 @@ small,
     object-fit: cover;
 }
 .img_profile {
-    width: 60%;
-    height: auto;
+    width: 150px;
+    height: 150px;
     object-fit: cover;
     background-position: center;
     background-size: cover;
+    border-radius: 50%;
 }
 .img_profile_edit {
     width: 150px;
@@ -5065,11 +5066,13 @@ input[type="button"].btn-block {
     background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0.25rem;
+}
+.card-contents {
     margin: 0 10px 10px 0;
     box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.12), 0 2px 3px 0 rgba(0, 0, 0, 0.22);
     transition: 0.3s;
 }
-.card:hover {
+.card-contents:hover {
     box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.15), 0 0 5px rgba(0, 0, 0, 0.1);
     transform: translateY(-4px);
 }
