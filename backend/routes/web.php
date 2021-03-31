@@ -19,6 +19,9 @@ Auth::routes();
 
 Route::get('/home', 'PostsController@index_top');
 
+//ゲストログイン
+Route::get('guest_login', 'Auth\LoginController@guest_login')->name('login.guest');
+
 //top画面表示
 Route::get('top', 'PostsController@index_top');
 

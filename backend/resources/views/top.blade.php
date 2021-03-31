@@ -2,7 +2,10 @@
 @extends('layouts.app')
 @section('content')
     <!-- Bootstrapの定形コード… -->
-
+    <div>
+      <h1>Share Process</h1>
+      <p>Share Processは、「挑戦する企業の継続した活動のために」をコンセプトとしたWebサイトです。</p>
+    </div>
     <!-- 全ての投稿リスト -->
      <?php $count = 0; ?>
       <p class="border-bottom h3">　　　　　　　記事一覧</p>

@@ -7,57 +7,41 @@
   @endphp
   {{ $user->followUsers()->count() }}
   --}}
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>newsite</title>
-    <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <div class="wrapper">
+    <div class="header"><h1>投稿ページ</h1></div>
+    <div class="content_wrapper">
+    <div class="content2">
 
-    <!-- Quill -->
-    <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+        <form action="/newpostsend" method="post">
+            @csrf
+            <p>タイトル</p>
+            <input type="text" name="title" class="formtitle">         
+            <p>&nbsp;</p>
+            <p>本文</p>
+            <!-- <textarea name="main" cols="40" rows="10"></textarea> -->
+            <div id="editor" style="height: 200px;"></div>
+            <p>&nbsp;</p>
+            <input type="submit" class="submitbtn">
+        </form>
 
-    </head>
-    <body>
-        <div class="wrapper">
-        <div class="header"><h1>投稿ページ</h1></div>
-        <div class="content_wrapper">
-        <div class="content2">
+    </div>
+    </div>
+    </div>
 
-            <form action="/newpostsend" method="post">
-                @csrf
-                <p>タイトル</p>
-                <input type="text" name="title" class="formtitle">
-                <p>&nbsp;</p>
-                <p>本文</p>
-                <!-- <textarea name="main" cols="40" rows="10"></textarea> -->
-                <div id="editor" style="height: 200px;"></div>
-                <p>&nbsp;</p>
-                <input type="submit" class="submitbtn">
-            </form>
-
-        </div>
-        </div>
-        </div>
-
-        <script>
-            var quill = new Quill('#editor', {
-              modules: {
-                toolbar: [
-                  ['bold', 'italic', 'underline', 'strike'],
-                  [{'color': []}, {'background': []}],
-                  ['link', 'blockquote', 'image', 'video'],
-                  [{ list: 'ordered' }, { list: 'bullet' }]
-                ]
-              },
-              placeholder: 'ここに記事を書いてください',
-              theme: 'snow'
-            }); 
-        </script>
-
-    </body>
-
+    <script>
+        var quill = new Quill('#editor', {
+          modules: {
+            toolbar: [
+              ['bold', 'italic', 'underline', 'strike'],
+              [{'color': []}, {'background': []}],
+              ['link', 'blockquote', 'image', 'video'],
+              [{ list: 'ordered' }, { list: 'bullet' }]
+            ]
+          },
+          placeholder: '',
+          theme: 'snow'
+        }); 
+    </script>
 
     <!-- Bootstrapの定形コード… -->
     <div class="card-body">
@@ -108,3 +92,7 @@
 
    
 @endsection
+</main>
+</div>
+</body>
+</html>
