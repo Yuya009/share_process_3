@@ -24,6 +24,8 @@ Route::get('guest_login', 'Auth\LoginController@guest_login')->name('login.guest
 
 //top画面表示
 Route::get('top', 'PostsController@index_top');
+//記事一覧
+Route::get('/top/post', 'PostsController@top_post');
 
 //マイページ表示
 Route::get('/', 'PostsController@index_top');

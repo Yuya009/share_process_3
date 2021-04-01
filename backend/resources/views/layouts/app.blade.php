@@ -84,5 +84,6 @@
             @yield('content')
         </main>
     </div>
+    <footer class="footer border-top text-center">Share Process</footer>
 </body>
 </html>

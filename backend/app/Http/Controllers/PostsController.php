@@ -57,6 +57,26 @@ class PostsController extends Controller
                ]);
         }
     }
+    public function top_post()
+    {
+      // 全ての投稿を取得
+      $posts = Post::orderBy('created_at', 'desc')->paginate(9);
+      $favo_posts = array();
+
+      if (Auth::check()) {
+           //ログインユーザーのお気に入りを取得
+           $favo_posts = Auth::user()->favo_posts()->get();
+           
+            return view('top_post',[
+              'posts'=> $posts,
+              'favo_posts'=>$favo_posts
+            ]);
+       }else{
+             return view('top_post',[
+               'posts'=> $posts
+             ]);
+      }
+    }
 
     /**
      * Show the form for creating a new resource.

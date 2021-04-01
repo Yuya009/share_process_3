@@ -2,3 +2,54 @@
 strong {
     font-weight: bold;
 }
+
+.img_size {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.img_profile {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+}
+
+.img_profile_edit {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    background-position: center;
+    background-size: cover;
+}
+
+.card_abridgement {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.card_abridgement_2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    /*IE対策*/
+    line-height: 1.5em;
+    max-height: 4.5em;
+}
+
+.card_abridgement_3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    /*IE対策*/
+    line-height: 1.5em;
+    max-height: 4.5em;
+}
