@@ -12,7 +12,7 @@
 
         <!-- 投稿フォーム -->
         @if( Auth::check() )
-        <form action="{{ url('posts/update') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+        <form action="{{ route('post.update') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
             {{ csrf_field() }}
             <!-- サムネイル画像 -->
             <div class="form-group">

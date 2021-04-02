@@ -186,7 +186,7 @@ class PostsController extends Controller
       $post->post_desc = $request->post_desc;
       $post->save();
 
-      return redirect('/');
+      return redirect('/top');
     }
 
     /**

@@ -51,7 +51,7 @@ Route::post('posts', 'PostsController@store');
 //記事投稿編集ページ
 Route::get('postedit/{post}', 'PostsController@edit');
 //記事投稿編集アップデート
-Route::post('posts/update', 'PostsController@update');
+Route::post('posts/p_update', 'PostsController@update')->name('post.update');
 //記事投稿詳細ページ
 Route::get('post/{post}', 'PostsController@show');
 //記事投稿削除処理
