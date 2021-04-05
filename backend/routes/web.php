@@ -56,8 +56,28 @@ Route::post('posts/p_update', 'PostsController@update')->name('post.update');
 Route::get('post/{post}', 'PostsController@show');
 //記事投稿削除処理
 Route::delete('post/{post}', 'PostsController@delete');
-
+//記事投稿
 Route::get('/write', 'PostsController@write');
+//エディタ内画像
+Route::post('/upload_image', 'PostsController@upload_image');
+
+
+//記事投稿（リッチテキストv2）
+Route::get('/create', 'PostsController@edita_create');
+//画像保存
+Route::post('/temp', 'PostsController@edita_image');
+
+
+//記事投稿（リッチテキストエディタ）
+Route::prefix('editor_post')->group(function(){
+  Route::get('/editor_index', 'PostsController@editor_index');
+  Route::get('/list', 'PostsController@editor_list');
+  Route::get('/{post}', 'PostsController@editor_show');
+  Route::post('/', 'PostsController@editor_store');
+  Route::post('/upload_image', 'PostsController@editor_upload_image');
+  Route::put('/{post}', 'PostsController@editor_update');
+  Route::delete('/{post}', 'PostsController@editor_destroy');
+});
 
 //テスト記事投稿
 Route::get('/edit_write', 'PostsController@edit_test');
@@ -82,6 +102,6 @@ Route::get('img', 'ImagesController@index');
 //画像アップロードフォーム
 Route::get('/form', 'UploadImageController@show')->name("upload_form");
 //画像アップロード処理ページ
-Route::post('/upload', 'UploadImageController@upload')->name("upload_image");
+//Route::post('/upload', 'UploadImageController@upload')->name("upload_image");
 //画像表示処理
 Route::get('/list', 'ImageListController@show')->name("imgae_list");

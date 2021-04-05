@@ -2,7 +2,7 @@
 @section('content')
   <img class="img_size" src="{{ Storage::url($post->file_path) }}" alt="カード画像">
   <h3 class="card-title">{{ $post->post_title }}</h3>
-  <p class="card-text">{{ $post->post_desc }}</p>
+  <p class="card-text"><?= htmlspecialchars_decode($post->post_desc); ?></p>
   <a href="{{ url('/top') }}">トップに戻る</a><br>
   @if(Auth::check())
     <!-- フォロー処理//投稿者がログインユーザの場合 -->

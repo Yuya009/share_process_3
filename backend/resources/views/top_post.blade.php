@@ -13,7 +13,7 @@
                   <img class="img_size" src="{{ Storage::url($post->file_path) }}" alt="カード画像">
                   <div class="card-body">
                     <h3 class="card-title card_abridgement_2">{{ $post->post_title }}</h3>
-                    <p class="card-text card_abridgement_3">{{ $post->post_desc }}</p>
+                    <!-- <p class="card-text card_abridgement_3"><?= htmlspecialchars_decode($post->post_desc); ?></p> -->
                   </div>
                 </a>
                   @if(Auth::check())

@@ -7,6 +7,7 @@ use App\Post;
 use App\User;
 use Auth;
 use Validator;
+use Illuminate\Support\Str;
 
 class PostsController extends Controller
 {
@@ -117,7 +118,7 @@ class PostsController extends Controller
       
         //バリデーション:エラー
         if ($validator->fails()) {
-          return redirect('/')
+          return redirect('/write')
               ->withInput()
               ->withErrors($validator);
         }
@@ -126,7 +127,7 @@ class PostsController extends Controller
         $posts = new Post; //新しいデータをPostモデルを通して、postsテーブルに登録する
         $posts->post_title = $request->post_title; //投稿のタイトル
         $posts->post_desc = $request->post_desc; //投稿の本文
-        $posts->file_name = $image_name;
+        $posts->file_name = $image_name;//画像の名前
         $posts->file_path = $path;//ファイルの保存パス
         $posts->user_id = Auth::id();//ここでログインしているユーザidを登録しています
         $posts->save(); //DBに登録
@@ -135,9 +136,35 @@ class PostsController extends Controller
      
     }
 
+    public function edita_create() {
+      return view('index');
+    }
+    public function edita_image(Request $request) {
+      $result=$request->file('file')->isValid();
+        if($result){
+            $filename = $request->file->getClientOriginalName();
+            $file=$request->file('file')->move('public/temp', $filename);
+            echo '/temp'.$filename;
+      }
+    }
+
     public function write()
     {
       return view('posts');
+    }
+    public function upload_image(Request $request) {
+
+      //バリデーションは省略しています。
+      $file = $request->file('image');
+      $extension = $file->extension();
+      $path = 'public/cms_images';
+      $name = date('Ymd-His') .'_'. Str::random(5) .'.'. $extension;
+      $request->file('image')->storeAs($path, $name);
+  
+      return [
+          'result' => true,
+          'image_url' => url('/storage/cms_images/'. $name)
+      ];
     }
 
     /**
@@ -243,4 +270,5 @@ class PostsController extends Controller
       $post->delete();
       return redirect('/');
     }
+
 }
