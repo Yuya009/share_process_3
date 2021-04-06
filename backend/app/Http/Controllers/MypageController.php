@@ -161,7 +161,7 @@ class MypageController extends Controller
       }
       $user_id = $request->id;
 
-      return redirect($user_id.'/post');
+      return redirect('/mypage/post/'.$user_id);
     }
 
     //マイページ（いいね）

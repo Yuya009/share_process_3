@@ -12,7 +12,7 @@
           <div class="row justify-content-center">
             @foreach ($posts as $post)
               <div class="card card-contents" style="width: 20rem;">
-                <a class="link_hidden" href="{{ url('post/'.$post->id) }}">
+                <a class="link_hidden" href="{{ url('/posts/content/'.$post->id) }}">
                   <img class="img_size" src="{{ Storage::url($post->file_path) }}" alt="カード画像">
                   <div class="card-body">
                     <h3 class="card-title card_abridgement_2">{{ $post->post_title }}</h3>

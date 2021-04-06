@@ -13,7 +13,7 @@
         @if( Auth::id() == $user->id ) 
           <p>現在の画像</p>
           <img class="img_profile_edit" src="{{ '/profile/'.($user->img_url) }}">
-          <form action="{{ url($user->id.'/update') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+          <form action="{{ url('/mypage/update/'.$user->id) }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
             {{ csrf_field() }}
             <!-- サムネイル画像 -->
               <div class="form-group">
@@ -60,10 +60,10 @@
               <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-6">
                   <button type="submit" class="btn btn-primary">
-                    Save
+                    保存する
                   </button>
                   <a class="btn btn-link pull-right" href="{{ url($user->id.'/post') }}">
-                    back
+                    キャンセル
                   </a>
                 </div>
               </div>

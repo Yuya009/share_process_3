@@ -61,7 +61,7 @@
 
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{{ url(Auth::user()->id.'/post') }}">マイページ</a>
-                <a class="dropdown-item" href="{{ url('/write') }}">記事を書く</a>
+                <a class="dropdown-item" href="{{ url('/posts/write') }}">記事を書く</a>
                 <a class="dropdown-item" href="{{ route('logout') }}"
                   onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
@@ -81,7 +81,7 @@
 <main class="py-4">
     <!--  エディタ表示部分  -->
     @include('common.errors')
-  <form action="{{ url('posts') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+  <form action="{{ url('/posts/save') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
     {{ csrf_field() }}
     <div class="form-group">
       投稿のタイトル
@@ -92,8 +92,22 @@
 
     <div class="form-group">
       サムネイル画像
-      <input type="file" name="file_image" accept="image/png, image/jpeg">
+      <input type="file" name="file_image" accept="image/png, image/jpeg" onchange="previewImage(this);">
     </div>
+    <script>
+      function previewImage(obj) {
+        var fr = new FileReader();
+        fr.onload = (function() {
+          document.getElementById('preview').src = fr.result;
+        });
+        fr.readAsDataURL(obj.files[0]);
+        //画像表示
+        var img_profile = document.getElementById('preview');
+        img_profile.classList.add("img_profile_edit");
+      }
+    </script>
+    <!-- サムネイル表示 -->
+    <img id="preview" class="">
 
     <div class="form-groutp">
       <textarea id="editor" name="post_desc" placeholder="ここにテキストを書いてください"></textarea>
@@ -119,7 +133,7 @@
           return this.loader.file
               .then(file => {
                   return new Promise((resolve, reject) => {
-                      const url = '/upload_image';
+                      const url = '/posts/upload_image';
                       let formData = new FormData();
                       formData.append('image', file);
 

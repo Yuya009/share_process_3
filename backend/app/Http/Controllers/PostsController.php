@@ -100,7 +100,7 @@ class PostsController extends Controller
         //バリデーション 
         $validator = Validator::make($request->all(), [
           'post_title' => 'required|max:255',
-          'post_desc' => 'required|max:255',
+          'post_desc' => 'required|max:10000',
         ]);
 
         //画像取得
@@ -132,20 +132,8 @@ class PostsController extends Controller
         $posts->user_id = Auth::id();//ここでログインしているユーザidを登録しています
         $posts->save(); //DBに登録
         
-        return redirect('/');
+        return redirect('/mypage/post/'.$posts->user_id);
      
-    }
-
-    public function edita_create() {
-      return view('index');
-    }
-    public function edita_image(Request $request) {
-      $result=$request->file('file')->isValid();
-        if($result){
-            $filename = $request->file->getClientOriginalName();
-            $file=$request->file('file')->move('public/temp', $filename);
-            echo '/temp'.$filename;
-      }
     }
 
     public function write()
@@ -193,6 +181,8 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    // 記事編集
     public function edit(Post $post)
     {
       if(Auth::id() == $post->user_id) {
@@ -200,10 +190,6 @@ class PostsController extends Controller
       }else{
         return redirect('/top');
       }
-    }
-    public function edit_test()
-    {
-      return view('edit');
     }
 
     public function update(Request $request) {

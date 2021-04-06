@@ -16,12 +16,12 @@
           {{ $user->introduction }}
         </div>
         <div class="col-5 text-left">
-          <a href="{{ url($user->id.'/followings') }}">{{ $user->follows()->count() }}フォロー</a>
-          <a href="{{ url($user->id.'/followers') }}">{{ $user->followUsers()->count() }}フォロワー</a><br>
+          <a href="{{ url('/mypage/followings/'.$user->id) }}">{{ $user->follows()->count() }}フォロー</a>
+          <a href="{{ url('/mypage/followers/'.$user->id) }}">{{ $user->followUsers()->count() }}フォロワー</a><br>
         </div>
         <div class="col-5">
           @if(Auth::id() == $user->id)
-            <form action="{{ url($user->id.'/profile_edit')}}" method="GET">
+            <form action="{{ url('/mypage/edit/'.$user->id) }}" method="GET">
               <button type="submit" class="">
                 プロフィール編集
               </button>
@@ -53,10 +53,14 @@
 
   <!-- タブ -->
   <nav class="nav justify-content-center">
-    <a class="nav-link active" href="{{ url($user->id.'/post') }}">投稿記事</a>
-    <a class="nav-link" href="{{ url($user->id.'/favorite') }}">お気に入り</a>
-    <a class="nav-link disable" href="{{ url($user->id.'/like') }}">いいね</a>
+    <a class="nav-link active" href="{{ url('/mypage/post/'.$user->id) }}">投稿記事</a>
+    <a class="nav-link" href="{{ url('/mypage/favorite/'.$user->id) }}">お気に入り</a>
+    <a class="nav-link disable" href="{{ url('/mypage/like/'.$user->id) }}">いいね</a>
   </nav>
+  <!-- 記事の投稿 -->
+
+
+
 
   <!-- 全ての投稿リスト -->
       <div class="card-body">
@@ -99,7 +103,7 @@
                     <!-- 編集ボタン -->
                     @if(Auth::id() == $post->user_id)
                         <td class="table-text">
-                          <form action="{{ url('postedit/'.$post->id) }}" method="GET">
+                          <form action="{{ url('/posts/edit/'.$post->id) }}" method="GET">
                             <button type="submit" class="btn btn-primary">
                               編集
                             </button>
@@ -107,7 +111,7 @@
                         </td>
                       <!-- 削除ボタン -->
                         <td class="table-text">
-                          <form action="{{ url('post/'.$post->id) }}" method="POST">
+                          <form action="{{ url('/posts/delete/'.$post->id) }}" method="POST">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
                             <button type="submit" class="btn btn-danger">

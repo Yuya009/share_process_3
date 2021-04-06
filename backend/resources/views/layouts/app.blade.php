@@ -62,8 +62,8 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ url(Auth::user()->id.'/post') }}">マイページ</a>
-                                    <a class="dropdown-item" href="{{ url('/write') }}">記事を書く</a>
+                                    <a class="dropdown-item" href="{{ url('/mypage/post/'.Auth::user()->id) }}">マイページ</a>
+                                    <a class="dropdown-item" href="{{ url('/posts/write') }}">記事を書く</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
