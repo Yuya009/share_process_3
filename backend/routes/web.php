@@ -26,40 +26,40 @@ Route::get('top', 'PostsController@index_top');
 //記事一覧
 Route::get('/top/post', 'PostsController@top_post');
 
-//マイページ関連
+//マイページ
 Route::prefix('mypage')->group(function(){
   //マイページ（投稿・Home）表示
-  Route::get('/post/{user_id}', 'MypageController@index_post');//修正ずみ
+  Route::get('/post/{user_id}', 'MypageController@index_post');
   //マイページ（お気に入り）表示
-  Route::get('/favorite/{user_id}', 'MypageController@index_favorite');//修正ずみ
+  Route::get('/favorite/{user_id}', 'MypageController@index_favorite');
   //マイページ（いいね）
-  Route::get('/like/{user_id}', 'MypageController@index_like');//修正ずみ
+  Route::get('/like/{user_id}', 'MypageController@index_like');
   //プロフィール編集
-  Route::get('/edit/{user_id}', 'MypageController@edit');//修正ずみ
+  Route::get('/edit/{user_id}', 'MypageController@edit');
   //プロフィールアップデート
-  Route::post('/update/{user_id}', 'MypageController@update');//修正ずみ
+  Route::post('/update/{user_id}', 'MypageController@update');
   //フォロー一覧
-  Route::get('/followings/{user_id}', 'MypageController@followings');//修正ずみ
+  Route::get('/followings/{user_id}', 'MypageController@followings');
   //フォロワー一覧
-  Route::get('/followers/{user_id}', 'MypageController@followers');//修正ずみ
+  Route::get('/followers/{user_id}', 'MypageController@followers');
 });
 
 //記事関連
 Route::prefix('posts')->group(function(){
   //記事投稿
-  Route::get('/write', 'PostsController@write');//修正ずみ
+  Route::get('/write', 'PostsController@write');
   //記事投稿処理
-  Route::post('/save', 'PostsController@store');//修正ずみ
+  Route::post('/save', 'PostsController@store');
   //記事投稿編集ページ
-  Route::get('/edit/{post}', 'PostsController@edit');//修正ずみ
+  Route::get('/edit/{post}', 'PostsController@edit');
   //記事投稿編集アップデート
-  Route::post('/update', 'PostsController@update');//修正ずみ
-  //記事投稿詳細ページ
-  Route::get('/content/{post}', 'PostsController@show');//編集ずみ
+  Route::post('/update', 'PostsController@update');
+  //記事詳細ページ
+  Route::get('/content/{post}', 'PostsController@show');
   //記事投稿削除処理
-  Route::delete('/delete/{post}', 'PostsController@delete');//修正ずみ
+  Route::delete('/delete/{post}', 'PostsController@delete');
   //エディタ内画像
-  Route::post('/upload_image', 'PostsController@upload_image');//修正ずみ
+  Route::post('/upload_image', 'PostsController@upload_image');
 });
 
 //記事お気に入り処理

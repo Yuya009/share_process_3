@@ -15,8 +15,8 @@
           {{ $user->introduction }}
         </div>
         <div class="col-6 text-left">
-          <a href="{{ url($user->id.'/followings') }}">{{ $user->follows()->count() }}フォロー</a>
-          <a href="{{ url($user->id.'/followers') }}">{{ $user->followUsers()->count() }}フォロワー</a><br>
+          <a href="{{ url('/mypage/followings/'.$user->id) }}">{{ $user->follows()->count() }}フォロー</a>
+          <a href="{{ url('/mypage/followers/'.$user->id) }}">{{ $user->followUsers()->count() }}フォロワー</a><br>
         </div>
         <div class="col-6">
           @if(Auth::id() == $user->id)
@@ -33,9 +33,9 @@
 
   <!-- タブ -->
   <nav class="nav justify-content-center border-bottom">
-    <a class="nav-link active" href="{{ url($user->id.'/post') }}">投稿記事</a>
-    <a class="nav-link" href="{{ url($user->id.'/favorite') }}">お気に入り</a>
-    <a class="nav-link disable" href="{{ url($user->id.'/like') }}">いいね</a>
+    <a class="nav-link active" href="{{ url('/mypage/post/'.$user->id) }}">投稿記事</a>
+    <a class="nav-link" href="{{ url('/mypage/favorite/'.$user->id) }}">お気に入り</a>
+    <a class="nav-link disable" href="{{ url('/mypage/like/'.$user->id) }}">いいね</a>
   </nav>
 
   <?php $count = 0; ?>
@@ -48,7 +48,7 @@
       <div class="container center-block">
         <div class="row">
           <div class="col-3">{{-- 画像 --}}
-            <a href="{{ url($follow->id.'/post') }}">
+            <a href="{{ url('/mypage/post/'.$follow->id) }}">
               <img class="img_profile float-right" src="{{ '/profile/'.($follow->img_url) }}" alt="">
             </a>
             </div>
@@ -57,8 +57,8 @@
               <h5>{{ $follow->name }}</h5>
             </div>
             <div class="col-6 text-left">
-              <a href="{{ url($follow->id.'/followings') }}">{{ $follow->follows()->count() }}フォロー</a>
-              <a href="{{ url($follow->id.'/followers') }}">{{ $follow->followUsers()->count() }}フォロワー</a><br>
+              <a href="{{ url('/mypage/followings/'.$follow->id) }}">{{ $follow->follows()->count() }}フォロー</a>
+              <a href="{{ url('/mypage/followers/'.$follow->id) }}">{{ $follow->followUsers()->count() }}フォロワー</a><br>
             </div>
           </div>
           <div class="col-2">

@@ -48,7 +48,7 @@
         <div class="row">
           
           <div class="col-3">{{-- 画像 --}}
-            <a href="{{ url($follow->id.'/post') }}">
+            <a href="{{ url('/mypage/post/'.$follow->id) }}">
               <img class="img_profile float-right" src="{{ '/profile/'.($follow->img_url) }}">
             </a>
           </div>
@@ -57,8 +57,8 @@
               <h5>{{ $follow->name }}</h5>
             </div>
             <div class="col-6 text-left">
-              <a href="{{ url('/mypage/followings/'.$user->id) }}">{{ $follow->follows()->count() }}フォロー</a>
-              <a href="{{ url('/mypage/followers/'.$user->id) }}">{{ $follow->followUsers()->count() }}フォロワー</a><br>
+              <a href="{{ url('/mypage/followings/'.$follow->id) }}">{{ $follow->follows()->count() }}フォロー</a>
+              <a href="{{ url('/mypage/followers/'.$follow->id) }}">{{ $follow->followUsers()->count() }}フォロワー</a><br>
             </div>
           </div>
           <div class="col-2">
