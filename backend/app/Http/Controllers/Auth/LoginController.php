@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
+
 class LoginController extends Controller
 {
     /*
@@ -52,5 +53,11 @@ class LoginController extends Controller
       }
 
       return redirect('/top');
+    }
+
+    //ログアウト
+    protected function loggedOut() {
+        Auth::logout();
+        return redirect('/top');
     }
 }

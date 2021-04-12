@@ -24,7 +24,7 @@
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> -->
 </head>
 <body>
-  <div id="app">
+  <div id="app" class="footerFixed">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
       <div class="container">
         <a class="navbar-brand" href="{{ url('top') }}">
@@ -60,7 +60,7 @@
               </a>
 
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ url(Auth::user()->id.'/post') }}">マイページ</a>
+                <a class="dropdown-item" href="{{ url('/mypage/post/'.Auth::user()->id) }}">マイページ</a>
                 <a class="dropdown-item" href="{{ url('/posts/write') }}">記事を書く</a>
                 <a class="dropdown-item" href="{{ route('logout') }}"
                   onclick="event.preventDefault();
@@ -109,7 +109,7 @@
     <!-- サムネイル表示 -->
     <img id="preview" class="">
 
-    <div class="form-groutp">
+    <div class="form-groutp col-sm-6">
       <textarea id="editor" name="post_desc" placeholder="ここにテキストを書いてください"></textarea>
     </div>
 

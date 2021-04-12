@@ -21,7 +21,7 @@
                 </a>
                 @if(Auth::check())
                   <div class = "row">
-                    <div class="col-lg-6 text-center">
+                    <div class="col-6 text-center">
                       <!-- お気に入り処理 -->
                       @if($post->favo_user()->where('user_id',Auth::id())->exists() !== true)
                         <form action="{{ url('post/'.$post->id) }}" method="POST">
@@ -41,7 +41,7 @@
                       @endif
                     </div>
                     <!-- いいね処理 -->
-                    <div class="col-lg-6 text-center">
+                    <div class="col-6 text-center">
                       @if($post->like_user()->where('user_id',Auth::id())->exists() !== true)
                         <form action="{{ url('postlike/'.$post->id) }}" method="POST">
                           {{  csrf_field()  }}

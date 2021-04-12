@@ -5,7 +5,7 @@ strong {
 
 .img_content {
     width: 100%;
-    height: 56%;
+    height: 56.25%;
     object-fit: cover;
 }
 
@@ -18,10 +18,44 @@ strong {
     border-radius: 50%;
 }
 
+.img_box {
+    width: 100%;
+    padding-top: 56.25%;
+    position: relative;
+}
+.img_box > img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    object-fit: cover;
+}
+
+.img-box {
+    width: 100%;
+    padding-top: 56.25%;
+    position: relative;
+}
+
+.img_mypage {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    object-fit: cover;
+}
+
 .img_size {
     width: 100%;
     height: 180px;
     object-fit: cover;
+}
+
+.img_mypage {
+    background-size: cover;
+    background-position: center center;
+    padding-top: 56.25%;
+    width: 50%;
 }
 
 .img_profile {
@@ -72,4 +106,46 @@ strong {
 .no-gutters {
     margin: 0;
     padding: 0;
+}
+
+/* タイトル関連 */
+
+.title_size {
+    padding-top: 50px;
+    padding-bottom: 10px;
+}
+
+/* フッター */
+.footerFixed {
+    min-height: 95vh; /* ←コンテンツの高さの最小値＝ブラウザの高さに指定 */
+    position: relative; /* ←相対位置 */
+    padding-bottom: 60px; /* ←フッターの高さを指定 */
+    box-sizing: border-box;
+    /* ↑ヘッダーやフッターを含むすべての要素の高さ＝min-height:100vhになるように指定 */
+}
+
+.footer_fix {
+    position: absolute; /* ←絶対位置 */
+    bottom: 0;
+    text-align: center;
+}
+
+/* mypageのpadding */
+.posts_p {
+    padding-top: 20px;
+}
+
+.all_link {
+    position: relative;
+    z-index: 1; /* 必要であればリンク要素の重なりのベース順序指定 */
+}
+.all_link a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-indent: -999px;
+    z-index: 2; /* 必要であればリンク要素の重なりのベース順序指定 */
+    background-color: transparent;
 }

@@ -108,7 +108,7 @@ class PostsController extends Controller
         //画像をフォルダに保存
         if(isset($upload_image)) {
           //アップロードされた画像を保存
-          $path = $upload_image->store('uploads', "public");
+          $path = $upload_image->store('thumbnail', "public");
           $image_name = $request->file('file_image')->getClientOriginalName();//画像名前
         } else {
           //なければデフォルト画像使用する
@@ -138,8 +138,15 @@ class PostsController extends Controller
 
     public function write()
     {
-      return view('posts');
+      if (Auth::check())
+      {
+        return view('posts');
+      }else {
+        return redirect('/top');
+      }
+      
     }
+    //cms内の画像をアップロード
     public function upload_image(Request $request) {
 
       //バリデーションは省略しています。
@@ -193,13 +200,43 @@ class PostsController extends Controller
     }
 
     public function update(Request $request) {
-      //バリデーション
+
+      //バリデーション 
+      $validator = Validator::make($request->all(), [
+        'post_title' => 'required|max:255',
+        'post_desc' => 'required|max:10000',
+      ]);
+      //元の投稿を取得
       $post = Post::find($request->id);
+
+      //画像取得
+      $upload_image = $request->file('file_image');
+      //画像をフォルダに保存
+      if(isset($upload_image)) {
+        //アップロードされた画像を保存
+        $path = $upload_image->store('uploads', "public");
+        $image_name = $request->file('file_image')->getClientOriginalName();//画像名前
+      } else {
+        //なければデフォルト画像使用する
+        $path = $post->file_path;//保存場所
+        $image_name = $post->file_name;//画像名
+      }
+    
+      //バリデーション:エラー
+      if ($validator->fails()) {
+        return redirect('/update')
+            ->withInput()
+            ->withErrors($validator);
+      }
+
       $post->post_title = $request->post_title;
       $post->post_desc = $request->post_desc;
+      $post->file_path = $path;//ファイルの保存パス
+      $post->file_name = $image_name;//画像の名前
+      
       $post->save();
 
-      return redirect('/top');
+      return redirect('/mypage/post/'.$post->user_id);
     }
 
     /**
@@ -254,7 +291,7 @@ class PostsController extends Controller
     //削除処理
     public function delete(Post $post) {
       $post->delete();
-      return redirect('/');
+      return redirect()->back();
     }
 
 }

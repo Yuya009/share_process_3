@@ -29,30 +29,33 @@
           @endif
         </div>
       </div>
+      
       <div class="col-2">
-        @if($user->id == Auth::id())
+        @if(Auth::check())
+          @if($user->id == Auth::id())
 
-        @elseif($user->followUsers()->where('following_user_id',Auth::id())->exists() !== true)
-        <form action="{{ url('follow/'.$user->id) }}" method="POST">
-          {{ csrf_field() }}
-          <button type="submit" class="btn btn-secondary">
-            フォローする
-          </button>
-        </fome>
-        @else
-        <form action="{{ url('follow_cancel', $user) }}" method="POST">
-          {{ csrf_field() }}
-          <button type="submit" class="btn btn-danger">
-            フォロー中
-          </button>
-        </form>
+          @elseif($user->followUsers()->where('following_user_id',Auth::id())->exists() !== true)
+          <form action="{{ url('follow/'.$user->id) }}" method="POST">
+            {{ csrf_field() }}
+            <button type="submit" class="btn btn-secondary">
+              フォローする
+            </button>
+          </fome>
+          @else
+          <form action="{{ url('follow_cancel', $user) }}" method="POST">
+            {{ csrf_field() }}
+            <button type="submit" class="btn btn-primary">
+              フォロー中
+            </button>
+          </form>
+          @endif
         @endif
       </div>
     </div>
   </div>
 
   <!-- タブ -->
-  <nav class="nav justify-content-center">
+  <nav class="nav justify-content-center border-bottom">
     <a class="nav-link active" href="{{ url('/mypage/post/'.$user->id) }}">投稿記事</a>
     <a class="nav-link" href="{{ url('/mypage/favorite/'.$user->id) }}">お気に入り</a>
     <a class="nav-link disable" href="{{ url('/mypage/like/'.$user->id) }}">いいね</a>
@@ -63,67 +66,84 @@
 
 
   <!-- 全ての投稿リスト -->
-      <div class="card-body">
-        <div class="card-body">
-          <table class="table table-striped task-table">
-            <!-- テーブルヘッダ -->
-            <thead>
-              <th>投稿記事一覧</th>
-              <th>&nbsp;</th>
-            </thead>
-            <!-- テーブル本体 -->
-            <tbody>
-              @foreach ($posts as $post)
-                  <tr>
-                    <!-- 投稿タイトル -->
-                    <td class="table-text">
-                      <div>{{ $post->post_title }}</div>
-                    </td>
-                    <!-- 投稿詳細 -->
-                    <td class="table-text">
-                      <div>{{ $post->post_desc }}</div>
-                    </td>
-                    <!-- 投稿者名の表示 -->
-                    <td class="table-text">
-                      <div>{{ $post->user->name }}</div>
-                    </td>
-                    <!-- お気に入りボタン -->
-                    <td class="table-text">
-                      @if(Auth::check())
-                        @if(Auth::id() != $post->user_id && $post->favo_user()->where('user_id',Auth::id())->exists() !== true)
-                          <form action="{{ url('post/'.$post->id) }}" method="POST">
-                            {{ csrf_field() }}
-                            <button type="submit" class="btn btn-danger">
-                            お気に入り
-                            </button>
-                          </form>
-                        @endif
+      <div class="row posts_p">
+        <div class="col-3">
+        </div>
+        <div class="col-6">
+          @foreach ($posts as $post)
+            <div class="row border-bottom">
+              <div class="col-3 all_link">
+                <img class="img_content" src="{{ Storage::url($post->file_path) }}">
+                <a class="link_hidden" href="{{ url('/posts/content/'.$post->id) }}"></a>
+              </div>
+
+              <div class="col-6 pull-left all_link">
+                <p class="no-gutters">{{ $post->post_title }}</p>
+                <p class="no-gutters">{{ $post->updated_at->format('Y/m/d') }}</p>
+                <a class="link_hidden" href="{{ url('/posts/content/'.$post->id) }}"></a>
+              </div>
+
+              <div class="col-3">
+                @if(Auth::check())
+                  @if(Auth::id() == $post->user_id)
+                  @elseif(Auth::id() != $post->user_id && $post->favo_user()->where('user_id',Auth::id())->exists() !== true)
+                    <form action="{{ url('post/'.$post->id) }}" method="POST">
+                      {{ csrf_field() }}
+                      <button type="submit" class="btn btn-secondary">
+                        お気に入り
+                      </button>
+                    </form>
+                  @else
+                  <!-- お気に入り削除 -->
+                  <form action="{{ url('favo_cancel/'.$post->id) }}" method="POST">
+                    {{ csrf_field() }}
+                    <button type="submit" class="btn btn-danger">
+                      お気に入り
+                    </button>
+                  </form>
+                  @endif
+
+                  <!-- いいね処理 -->
+                      @if(Auth::id() == $post->user_id)
+                      @elseif($post->like_user()->where('user_id',Auth::id())->exists() !== true)
+                        <form action="{{ url('postlike/'.$post->id) }}" method="POST">
+                          {{  csrf_field()  }}
+                          <button type="submit" class="btn btn-secondary">
+                            いいね
+                          </button>
+                        </form>
+                      @else
+                        <!-- いいね削除 -->
+                        <form action="{{ url('like_cancel', $post) }}" method="POST">
+                          {{  csrf_field()  }}
+                          <button type="submit" class="btn btn-success">
+                            いいね
+                          </button>
+                        </form>
                       @endif
-                    </td>
-                    <!-- 編集ボタン -->
-                    @if(Auth::id() == $post->user_id)
-                        <td class="table-text">
-                          <form action="{{ url('/posts/edit/'.$post->id) }}" method="GET">
-                            <button type="submit" class="btn btn-primary">
-                              編集
-                            </button>
-                          </form>
-                        </td>
-                      <!-- 削除ボタン -->
-                        <td class="table-text">
-                          <form action="{{ url('/posts/delete/'.$post->id) }}" method="POST">
-                            {{ csrf_field() }}
-                            {{ method_field('DELETE') }}
-                            <button type="submit" class="btn btn-danger">
-                              削除
-                            </button>
-                          </form>
-                        </td>
-                    @endif
-                  </tr>
-              @endforeach
-            </tbody>
-          </table>
+
+                  <!-- 編集ボタン -->
+                  @if(Auth::id() == $post->user_id)
+                    <form action="{{ url('/posts/edit/'.$post->id) }}" method="GET">
+                      <button type="submit" class="btn btn-primary">
+                        編集
+                      </button>
+                    </form>
+                  <!-- 削除ボタン -->
+                  <form action="{{ url('/posts/delete/'.$post->id) }}" method="POST">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                      <button type="submit" class="btn btn-danger">
+                        削除
+                      </button>
+                  </form>
+                  @endif
+                @endif
+              </div>
+            </div>
+          @endforeach
+        </div>
+        <div class="col-3">
         </div>
       </div>
 @endsection

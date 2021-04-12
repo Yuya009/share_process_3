@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('top');
-});
+// Route::get('/', function () {
+//     return view('top');
+// });
 
 Auth::routes();
 
@@ -23,6 +23,7 @@ Route::get('/home', 'PostsController@index_top');
 Route::get('guest_login', 'Auth\LoginController@guest_login')->name('login.guest');
 //top画面表示
 Route::get('top', 'PostsController@index_top');
+Route::get('/', 'PostsController@index_top');
 //記事一覧
 Route::get('/top/post', 'PostsController@top_post');
 
