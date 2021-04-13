@@ -72,18 +72,20 @@
         <div class="col-6">
           @foreach ($posts as $post)
             <div class="row border-bottom">
-              <div class="col-3 all_link">
-                <img class="img_content" src="{{ Storage::url($post->file_path) }}">
+              <div class="col-lg-3 all_link">
+                <div class="img_box">
+                  <img src="{{ Storage::url($post->file_path) }}">
+                </div>
                 <a class="link_hidden" href="{{ url('/posts/content/'.$post->id) }}"></a>
               </div>
 
-              <div class="col-6 pull-left all_link">
+              <div class="col-lg-6 pull-left all_link">
                 <p class="no-gutters">{{ $post->post_title }}</p>
                 <p class="no-gutters">{{ $post->updated_at->format('Y/m/d') }}</p>
                 <a class="link_hidden" href="{{ url('/posts/content/'.$post->id) }}"></a>
               </div>
 
-              <div class="col-3">
+              <div class="col-lg-3">
                 @if(Auth::check())
                   @if(Auth::id() == $post->user_id)
                   @elseif(Auth::id() != $post->user_id && $post->favo_user()->where('user_id',Auth::id())->exists() !== true)

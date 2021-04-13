@@ -112,8 +112,8 @@ class PostsController extends Controller
           $image_name = $request->file('file_image')->getClientOriginalName();//画像名前
         } else {
           //なければデフォルト画像使用する
-          $path = 'uploads/book_note_empty.png';//保存場所
-          $image_name = 'book_note_empty.png';//画像名
+          $path = 'thumbnail/Share-Process700.png';//保存場所
+          $image_name = 'Share-Process700.png';//画像名
         }
       
         //バリデーション:エラー

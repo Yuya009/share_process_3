@@ -5,7 +5,7 @@
       </div>
       <div class="col-sm-6">
         <div class="img_box">
-          <img class="float-center" src="{{ Storage::url($post->file_path) }}" alt="カード画像">
+          <img class="float-center border" src="{{ Storage::url($post->file_path) }}" alt="カード画像">
         </div>
         <h1 class="title_size">{{ $post->post_title }}</h1>
         <div class="row">

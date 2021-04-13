@@ -66,16 +66,18 @@
       </div>
       <div class="col-6">
           <div class="row border-bottom">
-            <div class="col-3 all_link">
-              <img class="img_content" src="{{ Storage::url($like_post->file_path) }}">
+            <div class="col-md-3 all_link">
+              <div class="img_box">
+                <img src="{{ Storage::url($like_post->file_path) }}">
+              </div>
               <a class="link_hidden" href="{{ url('/posts/content/'.$like_post->id) }}"></a>
             </div>
-            <div class="col-6 pull-left all_link">
+            <div class="col-md-6 pull-left all_link">
               <p class="no-gutters">{{ $like_post->post_title }}</p>
               <p class="no-gutters">{{ $like_post->user->name }}</p>
               <a class="link_hidden" href="{{ url('/posts/content/'.$like_post->id) }}"></a>
             </div>
-            <div class="col-3">
+            <div class="col-md-3">
               @if(Auth::check())
                 <!-- いいね -->
                 @if($like_post->like_user()->where('user_id',Auth::id())->exists() !== true)

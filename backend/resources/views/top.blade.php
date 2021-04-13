@@ -13,7 +13,7 @@
             @foreach ($posts as $post)
               <div class="card card-contents" style="width: 20rem;">
                 <a class="link_hidden" href="{{ url('/posts/content/'.$post->id) }}">
-                  <img class="img_size" src="{{ Storage::url($post->file_path) }}" alt="カード画像">
+                  <img class="img_size rounded" src="{{ Storage::url($post->file_path) }}" alt="カード画像">
                   <div class="card-body">
                     <h3 class="card-title card_abridgement_2">{{ $post->post_title }}</h3>
                     <!-- <p class="card-text card_abridgement_3"><?= htmlspecialchars_decode($post->post_desc); ?></p> -->

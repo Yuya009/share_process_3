@@ -62,7 +62,7 @@
                   <button type="submit" class="btn btn-primary">
                     保存する
                   </button>
-                  <a class="btn btn-link pull-right" href="{{ url($user->id.'/post') }}">
+                  <a class="btn btn-link pull-right" href="{{ url('/mypage/post/'.$user->id) }}">
                     キャンセル
                   </a>
                 </div>

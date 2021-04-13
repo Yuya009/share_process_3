@@ -65,16 +65,18 @@
         </div>
         <div class="col-6">
             <div class="row border-bottom">
-              <div class="col-3 all_link">
-                <img class="img_content" src="{{ Storage::url($favo_post->file_path) }}">
-                <a class="link_hidden" href="{{ url('/posts/content/'.$favo_post->id) }}"></a>
+              <div class="col-md-3 all_link">
+                <div class="img_box">
+                  <img class="img_content" src="{{ Storage::url($favo_post->file_path) }}">
+                </div>
+                <a href="{{ url('/posts/content/'.$favo_post->id) }}"></a>
               </div>
-              <div class="col-6 pull-left all_link">
+              <div class="col-md-6 pull-left all_link">
                 <p class="no-gutters">{{ $favo_post->post_title }}</p>
                 <p class="no-gutters">{{ $favo_post->user->name }}</p>
                 <a class="link_hidden" href="{{ url('/posts/content/'.$favo_post->id) }}"></a>
               </div>
-              <div class="col-3">
+              <div class="col-md-3">
                 @if(Auth::check())
                   @if(Auth::id() == $favo_post->user_id && $favo_post->favo_user()->where('user_id',Auth::id())->exists() !== true)
                     <form action="{{ url('post/'.$favo_post->id) }}" method="POST">
