@@ -79,46 +79,58 @@
   </nav>
 
 <main class="py-4">
-    <!--  エディタ表示部分  -->
-    @include('common.errors')
-  <form action="{{ url('/posts/save') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
-    {{ csrf_field() }}
-    <div class="form-group">
-      投稿のタイトル
-      <div class="col-sm-6">
-        <input type="text" name="post_title" class="form-control">
-      </div>
+  <div class="row">
+    <div class="col-lg-3">
     </div>
+    <div class="col-lg-6 ">
+      <!--  エディタ表示部分  -->
+      @include('common.errors')
+      <form action="{{ url('/posts/save') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        <div class="form-group">
+          投稿のタイトル
+          <div class="">
+            <input type="text" name="post_title" class="form-control">
+          </div>
+        </div>
 
-    <div class="form-group">
-      サムネイル画像
-      <input type="file" name="file_image" accept="image/png, image/jpeg" onchange="previewImage(this);">
-    </div>
-    <script>
-      function previewImage(obj) {
-        var fr = new FileReader();
-        fr.onload = (function() {
-          document.getElementById('preview').src = fr.result;
-        });
-        fr.readAsDataURL(obj.files[0]);
-        //画像表示
-        var img_profile = document.getElementById('preview');
-        img_profile.classList.add("img_profile_edit");
-      }
-    </script>
-    <!-- サムネイル表示 -->
-    <img id="preview" class="">
+        <div class="form-group">
+          サムネイル画像
+          <input type="file" name="file_image" accept="image/png, image/jpeg" onchange="previewImage(this);">
+        </div>
+        <script>
+          function previewImage(obj) {
+            var fr = new FileReader();
+            fr.onload = (function() {
+              document.getElementById('preview').src = fr.result;
+            });
+            fr.readAsDataURL(obj.files[0]);
+            //画像表示
+            var img_profile = document.getElementById('preview');
+            img_profile.classList.add("img_profile_edit");
+          }
+        </script>
+        <!-- サムネイル表示 -->
+        <div class="img_box">
+          <img id="preview" class="">
+        </div>
+        <div class="form-groutp">
+          <textarea id="editor" name="post_desc" placeholder="ここにテキストを書いてください"></textarea>
+        </div>
 
-    <div class="form-groutp col-sm-6">
-      <textarea id="editor" name="post_desc" placeholder="ここにテキストを書いてください"></textarea>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">
+            保存する
+          </button>
+          <a class="btn btn-link pull-right" href="{{ url('/mypage/post/'.Auth::id()) }}">
+            キャンセル
+          </a>
+        </div>
+      </fome>
     </div>
-
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary">
-        保存する
-      </button>
+    <div class="col-lg-3">
     </div>
-  </fome>
+  </div>
   
   <script src="https://unpkg.com/vue@3.0.2/dist/vue.global.prod.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
