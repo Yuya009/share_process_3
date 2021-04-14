@@ -40,6 +40,13 @@
           </ul>
           <!-- Right Side Of Navbar -->
           <ul class="navbar-nav ml-auto">
+          <!-- 検索 -->
+            <li class="nav-item">
+              <form action="{{ url('/posts/search')}}" method="GET">
+                <input type="text" name="keyword">
+                <button type="submit" class="btn btn-light border">検索</button>
+              </form>
+            </li>
           <!-- Authentication Links -->
           @guest
             <li class="nav-item">
@@ -90,7 +97,7 @@
         <div class="form-group">
           投稿のタイトル
           <div class="">
-            <input type="text" name="post_title" class="form-control">
+            <input type="text" name="post_title" class="form-control" placeholder="ここにタイトルを書いてください">
           </div>
         </div>
 

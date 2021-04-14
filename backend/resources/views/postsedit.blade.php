@@ -40,6 +40,13 @@
           </ul>
           <!-- Right Side Of Navbar -->
           <ul class="navbar-nav ml-auto">
+          <!-- 検索 -->
+          <li class="nav-item">
+              <form action="{{ url('/posts/search')}}" method="GET">
+                <input type="text" name="keyword">
+                <button type="submit" class="btn btn-light border">検索</button>
+              </form>
+            </li>
           <!-- Authentication Links -->
           @guest
             <li class="nav-item">
@@ -84,55 +91,60 @@
 
   
 <main class="py-4">
-  @include('common.errors')
-  <p>現在の画像</p>
-  <img class="img_profile_edit" src="{{ Storage::url($post->file_path) }}">
-  <form action="{{ url('/posts/update') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
-    {{ csrf_field() }}
-    <div class="form-group">
-      サムネイル画像
-      <input type="file" name="file_image" accept="image/png, image/jpeg" onchange="previewImage(this);">
+  <div class="row">
+    <div class="col-lg-3">
     </div>
+    <div class="col-lg-6 ">
+      @include('common.errors')
+      <p>現在の画像</p>
+      <img class="img_profile_edit" src="{{ Storage::url($post->file_path) }}">
+      <form action="{{ url('/posts/update') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        <div class="form-group">
+          サムネイル画像
+          <input type="file" name="file_image" accept="image/png, image/jpeg" onchange="previewImage(this);">
+        </div>
 
-    <!-- サムネイル表示 -->
-    <img id="preview" class="">
+        <!-- サムネイル表示 -->
+        <img id="preview" class="">
 
-    <!-- 投稿タイトル -->
-    <div class="form-group">
-      投稿のタイトル
-      <div class="col-sm-6">
-        <input type="text" name="post_title" class="form-control" value="{{ $post->post_title }}">
-      </div>
+        <!-- 投稿タイトル -->
+        <div class="form-group">
+          投稿のタイトル
+          <div class="">
+            <input type="text" name="post_title" class="form-control" value="{{ $post->post_title }}">
+          </div>
+        </div>
+
+        <script>
+          function previewImage(obj) {
+            var fr = new FileReader();
+            fr.onload = (function() {
+              document.getElementById('preview').src = fr.result;
+            });
+            fr.readAsDataURL(obj.files[0]);
+            //画像表示
+            var img_profile = document.getElementById('preview');
+            img_profile.classList.add("img_profile_edit");
+          }
+        </script>
+
+        <!-- 投稿本文 -->
+        <div class="form-groutp">
+          <textarea id="editor" name="post_desc"><?= htmlspecialchars_decode($post->post_desc); ?></textarea>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">
+            保存する
+          </button>
+        </div>
+
+        <!-- 投稿id -->
+        <input type="hidden" name="id" value="{{ $post->id }}" >
+      </fome>
     </div>
-
-    <script>
-      function previewImage(obj) {
-        var fr = new FileReader();
-        fr.onload = (function() {
-          document.getElementById('preview').src = fr.result;
-        });
-        fr.readAsDataURL(obj.files[0]);
-        //画像表示
-        var img_profile = document.getElementById('preview');
-        img_profile.classList.add("img_profile_edit");
-      }
-    </script>
-
-    <!-- 投稿本文 -->
-    <div class="form-groutp col-sm-6">
-      <textarea id="editor" name="post_desc"><?= htmlspecialchars_decode($post->post_desc); ?></textarea>
-    </div>
-
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary">
-        保存する
-      </button>
-    </div>
-
-    <!-- 投稿id -->
-    <input type="hidden" name="id" value="{{ $post->id }}" >
-  </fome>
-  
+  </div>
   <script src="https://unpkg.com/vue@3.0.2/dist/vue.global.prod.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
   <script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>

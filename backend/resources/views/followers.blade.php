@@ -20,7 +20,7 @@
         </div>
         <div class="col-5">
           @if(Auth::id() == $user->id)
-            <form action="{{ url($user->id.'/profile_edit')}}" method="GET">
+            <form action="{{ url('/mypage/edit/'.$user->id )}}" method="GET">
               <button type="submit" class="">
                 プロフィール編集
               </button>

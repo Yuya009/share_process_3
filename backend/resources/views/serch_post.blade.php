@@ -6,7 +6,7 @@
     <div class="row border-bottom">
       <div class="col-md-3"></div>
       <div class="col-md-6">
-        <p class="h3">記事一覧</p>
+        <p class="h3">検索結果："{{$keyword}}"</p>
       </div>
       <div class="col-md-3"></div>
     </div>
@@ -72,7 +72,7 @@
           </div>
     <div class="row justify-content-center">
       <div class="">
-        {{ $posts->links() }}
+        {{ $posts->appends(['keyword'=>$keyword])->links() }}
       </div>
     </div>
 @endsection

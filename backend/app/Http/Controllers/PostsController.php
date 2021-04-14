@@ -182,6 +182,24 @@ class PostsController extends Controller
           ]);
     }
 
+    public function search(Request $request)
+    {
+      $keyword = $request->input('keyword');
+
+      $query = Post::query();
+      if(!empty($keyword)) {
+        $query->where('post_title', 'LIKE', '%'.$keyword.'%')
+            ->orWhere('post_desc', 'LIKE', '%'.$keyword.'%');
+      }
+      //$s_posts = $query->get();
+      $posts = $query->paginate(9);
+
+      return view('serch_post', [
+        'posts' => $posts,
+        'keyword' => $keyword
+      ]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

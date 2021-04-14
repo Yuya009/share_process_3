@@ -3,11 +3,15 @@
 @if( Auth::check() )
     <!-- Bootstrapの定形コード… -->
     <div class="card-body">
+      <div class="row">
+      <div class="col-lg-3">
+      </div>
+      <div class="col-lg-6 ">
         <div class="card-title">
             プロフィール編集
         </div>
         <!-- バリデーションエラーの表示に使用-->
-    	@include('common.errors')
+    	  @include('common.errors')
         <!-- バリデーションエラーの表示に使用-->
         <!-- 投稿フォーム -->
         @if( Auth::id() == $user->id ) 
@@ -45,20 +49,20 @@
             <!-- 投稿のタイトル -->
               <div class="form-group">
                 名前
-                <div class="col-sm-6">
+                <div class="">
                   <input type="text" name="name" class="form-control" value="{{ $user->name }}">
                 </div>
               </div>
             <!-- 投稿の本文 -->
               <div class="form-group">
                 説明文（255文字）
-                <div class="col-sm-6">
+                <div class="">
                   <input type="text" name="introduction" class="form-control" value="{{ $user->introduction }}" onchange="previewImage(this)">
                 </div>
               </div>
             <!--　登録ボタン -->
               <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-6">
+                <div class="">
                   <button type="submit" class="btn btn-primary">
                     保存する
                   </button>
@@ -71,6 +75,8 @@
           </form>
         <!-- /投稿フォーム -->
         @endif
+        </div>
+      </div>
     </div>
 @endif
 @endsection

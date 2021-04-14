@@ -47,6 +47,8 @@ Route::prefix('mypage')->group(function(){
 
 //記事関連
 Route::prefix('posts')->group(function(){
+  //記事の検索
+  Route::get('/search', 'PostsController@search');
   //記事投稿
   Route::get('/write', 'PostsController@write');
   //記事投稿処理
